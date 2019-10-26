@@ -5,12 +5,18 @@ export default class Counter extends Component {
     count: 0
   }
   
-  incrementCounter = (amount) => this.setState(prevState => ({
-    count: prevState.count + amount
+  // better to have one reference rather than instantiate each time 
+  // on render for perf 
+  incrementCounter = () => this.setState(prevState => ({
+    count: prevState.count + 1
   }));
 
-  hardSetCounter = (newCount) => this.setState({
-    count: newCount
+  decrementCounter = () => this.setState(prevState => ({
+    count: prevState.count - 1
+  }));
+
+  resetCounter = () => this.setState({
+    count: 0
   })
 
   render() {
@@ -18,9 +24,9 @@ export default class Counter extends Component {
     return (
       <section className="Counter">
         <h1>Count: {count}</h1>
-        <button onClick={() => this.incrementCounter(1)} className="full-width">Increment</button>
-        <button onClick={() => this.incrementCounter(-1)} className="full-width">Decrement</button>
-        <button onClick={() => this.hardSetCounter(0)} className="full-width">Reset</button>
+        <button onClick={this.incrementCounter} className="full-width">Increment</button>
+        <button onClick={this.decrementCounter} className="full-width">Decrement</button>
+        <button onClick={this.resetCounter} className="full-width">Reset</button>
       </section>
     );
   }
